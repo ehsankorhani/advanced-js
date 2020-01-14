@@ -150,6 +150,24 @@ console.log(+'10'); // 10 (int)
 
 Weird but useful!
 
+In addition, we know that every value in JavaScript has an inherent boolean value and is _truthy_ or _falsy_. <br />
+```!``` operator negates and returns then inverse of that value. <br />
+Therefore, we can in fact use double exclamation to convert a value to it's boolean type.
+
+```js
+console.log(!!true); // true
+console.log(!!"non-empty string"); // true
+console.log(!!null); // false
+console.log(!!{}); // true
+console.log(!![]); // true
+```
+
+This can be achieved by explicit type conversion too.
+
+```js
+console.log(Boolean(null)); // false
+```
+
 ---
 
 ## Comparison and Strict equality

@@ -11,3 +11,11 @@ console.log(10 + '5'); // 105 (str)
 console.log('10' + '5'); // 105 (str)
 
 console.log(+'10'); // 10 (int)
+
+console.log(!!true); // true
+console.log(!!"non-empty string"); // true
+console.log(!!null); // false
+console.log(!!{}); // true
+console.log(!![]); // true
+
+console.log(Boolean(null)); // false
