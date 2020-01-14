@@ -116,3 +116,70 @@ obj.foo = 'some value';
 arr.push('another value');
 ```
 
+---
+
+## Type conversion with operators
+
+Numeric conversion happens in mathematical functions and expressions automatically:
+
+```js
+console.log('10' - '5'); // 5
+console.log('10' * '5'); // 50
+console.log('10' / '5'); // 2
+
+console.log('10' - 5); // 5
+console.log(10 * '5'); // 50
+```
+
+Things are different when using ```+``` to add values:
+
+```js
+console.log(10 + 5); // 15
+console.log('10' + 5); // 105
+console.log(10 + '5'); // 105
+console.log('10' + '5'); // 105
+```
+
+Because ```+``` is a string concatenation operator and converts integers to string in the examples above.
+
+However it can be used to convert string into integer as well:
+
+```js
+console.log(+'10'); // 10 (int)
+```
+
+Weird but useful!
+
+---
+
+## Comparison and Strict equality
+
+Best practice: Always try to use ```===``` and avoid greater or lesser comparison when variable can have ```null``` or ```undefined``` values.
+
+Strict equality (and inequality) was added later to JavaScript in a response to troubles with normal ```==``` operator. This operator along with ```!=```, ```>```, ```>=```, ```<``` and ```<=``` perform a type cast before the operation and this can lead to unexpected behaviors.
+
+```null``` **casts to 0** ```null``` is not equal to 0 in simple equality:
+
+```js
+null == 0; // false
+```
+
+but gets converted to 0 in lesser or greater comparison:
+
+```js
+null > 0;  // false
+null >= 0; // true
+```
+
+undefined **casts to** ```NaN```
+
+```js
+undefined == 0; // false
+```
+
+but gets converted to 0 in lesser or greater comparison:
+
+```js
+undefined > 0;  // false
+undefined < 0; // false
+```
