@@ -5,3 +5,5 @@ This repo is going to discuss a more advanced topics of JavaScript language. Thi
 
 ### Reference
 [The Modern JavaScript Tutorial](https://javascript.info/)
+<br />
+[JavaScript: Understanding the Weird Parts](https://www.udemy.com/course/understand-javascript/)
