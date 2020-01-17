@@ -120,7 +120,7 @@ arr.push('another value');
 
 ## Type conversion with operators
 
-Numeric conversion happens in mathematical functions and expressions automatically:
+Numeric conversion happens in mathematical functions and expressions automatically. This also refers to as **Coercion**.
 
 ```js
 console.log('10' - '5'); // 5
@@ -201,3 +201,59 @@ but gets converted to 0 in lesser or greater comparison:
 undefined > 0;  // false
 undefined < 0; // false
 ```
+
+Another example would be:
+
+```js
+1 < 2 < 3 // true
+3 < 2 < 1 // true
+```
+
+Because ```3 < 2``` is evaluated to ```false``` and ```Number(false) = 0```.
+
+**Note** ES6 has a new function for comparison which acts a bit different:
+```js
+Object.is(Number.NaN, NaN) // true
+Number.NaN === NaN; // false
+
+Object.is(-0, +0) // false
+-0 === +0; // true
+```
+
+---
+
+## Loops and Iteration
+
+Any part of ```for``` loop can be skipped.
+
+```js
+for (;;) {
+  // infinite loop
+}
+```
+
+### break
+Forces an exit from the loop. The execution continues from after the loop.
+
+```js
+for (let i = 0; i < 10 i++) {
+  // some logic...
+
+  if (i === 5) break;
+
+  // more logic...
+}
+```
+
+### continue
+This doesn't stop the whole loop, but skips the rest of logic in the block and continues from the next iteration.
+
+```js
+for (let i = 0; i < 10; i++) {
+  if (i % 2 == 0) continue;
+
+  // logic...
+}
+```
+
+**Note** ```break <labelName>``` can be used to break in nested loops.
