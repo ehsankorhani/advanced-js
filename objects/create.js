@@ -1,6 +1,26 @@
-let user = new Object();
-let user2 = {};
+let person1 = new Object();
+// -------------
+let person2 = Object.create(null);
+// -------------
+let person3 = {};
+// -------------
+let Person = function() {  
+}
 
-console.log(user)
-console.log(user.prototype)
-console.log(user2.prototype)
+let person4 = new Person();
+
+let person5 = {
+  fname: 'Alfie',
+  lname: 'Atkins',
+};
+
+person5.age = 32;
+person5['id number'] = 'abc123';
+
+let mobile = person5.mobile;
+
+for (let key in person5) {
+  console.log(`${key} = ${person5[key]}`)
+}
+
+console.log(mobile)
