@@ -257,3 +257,62 @@ for (let i = 0; i < 10; i++) {
 ```
 
 **Note** ```break <labelName>``` can be used to break in nested loops.
+
+---
+
+## Switch statement
+
+```switch``` will try to find the first ```case``` value that satisfies the strict equality (thus, **Type** matters).
+
+```js
+let sum = 2 + 2;
+
+switch (sum) {
+  case 3:
+    console.log('Too small!');
+    break;
+  case 4:
+    console.log('Exactly!');
+    break;
+  case 4:
+    console.log('Another occurrence!' );
+    break;
+  case 5:
+  case 6:
+    console.log('Either 5 or 6.');
+    break;
+  default:
+    console.log("I don't know such values.");
+}
+```
+
+Output is:
+
+```bash
+Exactly!
+```
+
+However, if you miss the ```break;``` statement everything after the first occurrence will be executed (until it encounters a ```break```).
+
+```js
+let sum = 2 + 2;
+
+switch (sum) {
+  case 3:
+    console.log('Too small!');
+  case 4:
+    console.log('Exactly!');
+  case 4:
+    console.log('Another occurrence!');
+    break;
+  default:
+    console.log("I don't know such values.");
+}
+```
+
+the output will be:
+
+```bash
+Exactly!
+Another occurrence!
+```
