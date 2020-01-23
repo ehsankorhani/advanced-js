@@ -74,7 +74,7 @@ for (let key in person) {
 
 **Note:** If a ```key``` name is *Integer* it will be ordered to top and the rest will appear in the order they have been defined.
 
-#### Computer properties
+#### Computed properties
 
 Square brackets can be used as object key's to act as a variable.
 
