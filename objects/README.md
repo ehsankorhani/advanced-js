@@ -89,6 +89,8 @@ person.lastName = 'Doe'; // OK
 person = {}; // TypeError: Assignment to constant variable.
 ```
 
+---
+
 ## By Reference vs. By Value
 
 Objects are store *by reference*. Therefore, two objects with the same value are not equal, because they are pointing to different address in memory.
@@ -171,6 +173,8 @@ console.log(person1.address.city) // 'Tokyo'
 The *address* property is an object and will be copied by reference.
 
 <br />
+
+---
 
 ## Object creation patterns
 
@@ -331,3 +335,126 @@ let person = new Person('Alfie');
 person.greeting() // Hi Alfie
 
 ```
+
+<br />
+
+---
+
+## This
+
+The value of ```this``` is evaluated during the run-time, depending on the context. <br />
+It does not depend on place of declaration, but on what object (before the dot).
+
+If the code is running in ```global context```:
+
+```js
+function printThis() {
+  console.log(this);
+}
+
+printThis() // Object [global]
+```
+
+It'll be different in ```strict``` mode:
+
+```js
+'use strict'
+
+function printThis() {
+  console.log(this);
+}
+
+printThis() // undefined
+```
+
+#### this of object
+
+The ```this``` in any method defined in an object would be the object:
+
+```js
+let person = {
+  name: "Alfie",
+}
+
+person.greeting = function() {
+  console.log(`Hi ${this.name}`) // Hi Alfie
+  console.log(this == person) // true
+}
+
+person.greeting();
+```
+
+#### ```this``` is not bound
+
+The ```this``` in *greeting* function will be bound to the object it's running on at run-time.
+
+```js
+let person2 = { name: 'Alfie', }
+let person3 = { name: 'Jane', }
+
+let greeting = function() {
+  console.log(`Hi ${this.name}`)
+}
+
+person2.greeting = greeting;
+person3.greeting = greeting;
+
+person2.greeting() // Hi Alfie
+person3.greeting() // Hi Jane
+```
+
+So it even doesn't matter if the object does not even exist.
+
+```js
+let person = {
+  name: 'Alfie',
+
+  greeting() {
+    console.log(`Hi ${this.name}`)
+  }
+}
+
+let personNew = person;
+person = null;
+
+personNew.greeting(); // Hi Alfie
+```
+
+But this will not work:
+
+```js
+let person = {
+  name: 'Alfie',
+
+  greeting() {
+    console.log(`Hi ${person.name}`)
+  }
+}
+
+let personNew = person;
+person = null;
+
+personNew.greeting(); // TypeError: Cannot read property 'name' of null
+```
+
+#### Arrow functions
+
+Run-time evaluation of ```this``` enables a function to be reused for different objects. But it creates complexity a well.
+
+With *Arrow functions* this will taken from the outer context.
+
+```js
+let person = { name: 'Alfie' }
+
+let greetingOut = () => {
+  console.log(`Hi ${this.name}`) // Hi undefined
+  console.log(this == person) // false
+}
+
+person.greeting = greetingOut;
+
+person.greeting();
+```
+
+
+
