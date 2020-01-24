@@ -4,37 +4,10 @@ Object is a non-primitive data type in JavaScript. This means that they are *mut
 
 ## Object creation
 
-There are multiple ways to create an Object in JavaScript.
-
-#### Object Constructor syntax
-
-```js
-let person = new Object();
-```
-
-#### Object.create() method
-
-```js
-let person = Object.create(null);
-```
-
-which allows to create object with more attribute options.
-
-#### Object Literal syntax
+There are multiple ways to create an Object in JavaScript. The simplest and most common style is **Object Literal** syntax.
 
 ```js
 let person = {};
-```
-
-This is the most common way to create an Object and is equivalent to ```Object.create(null)```.
-
-#### Function constructor
-
-```js
-let Person = function() {  
-}
-
-let person1 = new Person();
 ```
 
 ## Object Properties
@@ -196,3 +169,165 @@ console.log(person1.address.city) // 'Tokyo'
 ```
 
 The *address* property is an object and will be copied by reference.
+
+<br />
+
+## Object creation patterns
+
+#### Object Constructor syntax
+
+```js
+let person = new Object();
+```
+
+#### Object.create() method
+
+```js
+let person = Object.create(null);
+```
+
+which allows to create object with more attribute options.
+
+#### Object Literal syntax
+
+```js
+let person = {};
+```
+
+This is the most common way to create an Object and is equivalent to ```Object.create(null)```.
+
+##  Patterns
+The drawback of the previous syntaxes is that they don't allow creation of the same type without copy-paste.
+
+Therefore, in the absence of ```class``` in ES5, the JavaScript community has created patterns to simplify the creation of family of same objects.
+
+<br />
+
+#### Constructor pattern
+
+The ```this``` will be returned from the function. Therefore, no ```return``` keyword is required.
+
+```js
+// Capitalize the function name
+let Person = function(name) {
+  this.name = name;
+
+  this.greeting = function() {
+    console.log(`Hi ${name}`)
+  }
+}
+
+let person1 = new Person('Alfie');
+person1.greeting(); // Hi Alfie
+```
+
+The ```new``` operator will create a new instance of the object.
+
+<br />
+
+#### Factory pattern
+
+Factory creates and returns a new instance of an object every time it's getting called.
+
+```js
+let PersonFactory = function(name) {
+  return {
+    name: name,
+
+    greeting: function() {
+      console.log(`Hi ${name}`)
+    }
+  }
+}
+
+let person1 = PersonFactory('Alfie');
+person1.greeting(); // Hi Alfie
+```
+
+Therefore, there is no need to use ```new``` operator.
+
+<br />
+
+#### Prototype pattern
+
+With constructor and factory the properties and methods are on the main object. Therefore, each time you instantiate it, everything gets re-created again. Separate memory will be allocated for it and changes will only affect the instance.
+
+In this pattern a blank object is created. Nothing will return from it. <br />
+The properties will be created on the object's ```prototype```. <br />
+No independent memory will be allocated and all The changes on Prototypes will affect everything else.
+
+```js
+let Person = function() {};
+
+Person.prototype.name = null;
+Person.prototype.greeting = function() {
+  console.log(`Hi ${this.name}`)
+}
+
+let person1 = new Person();
+person1.greeting(); // Hi null
+```
+
+<br />
+
+#### Constructor/Prototype Pattern
+
+Most of times we don't want to share *property* values between instances, but we also don't want to allocate unnecessary memory for methods.
+
+The properties are referenced with ```this``` operator, but the object methods are are created on the prototype.
+
+The purpose is to maintaining the benefits of using both a constructor and a prototype.
+
+```js
+let Person = function(name) {
+  this.name = name;
+}
+
+Person.prototype.greeting = function() {
+  console.log(`Hi ${this.name}`)
+}
+
+let person1 = new Person('Alfie');
+person1.greeting(); // Hi Alfie
+```
+
+<br />
+
+#### Dynamic Prototype Pattern
+
+*Prototype* might look unfamiliar to developers coming from classic OOP languages. This pattern tries to make object creation look more similar to other languages by placing the method definition on the object.
+
+```js
+let Person = function(name) {
+  this.name = name;
+
+  if (typeof this.greeting != 'function') {
+    Person.prototype.greeting = function() {
+      console.log(`Hi ${this.name}`)
+    }
+  }
+}
+
+let person1 = new person('Alfie');
+person1.greeting() // Hi Alfie
+```
+
+#### ES6 Class
+
+ES6 supports the familiar ```class``` concept.
+
+```js
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  greeting() {
+    console.log(`Hi ${this.name}`)
+  }
+}
+
+let person = new Person('Alfie');
+person.greeting() // Hi Alfie
+
+```
