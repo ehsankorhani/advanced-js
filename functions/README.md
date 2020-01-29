@@ -236,3 +236,31 @@ const foo = (name, salutation) => `Hi ${salutation} ${name}`;
 
 foo('Alfie', 'Mr.'); // -> Hi Mr. Alfie
 ```
+
+### This
+
+Arrow functions have no ```this```. They will take their ```this``` from outer context.
+
+```js
+const fn = function() {
+  console.log(this) // -> Object [global]
+}
+
+const arrow = () => {
+  console.log(this) // -> {}
+}
+
+fn()
+arrow()
+```
+
+**Note:** Not having ```this``` means that *arrow functions* can't be called with ```new```.
+
+```js
+const arrow = () => {
+}
+
+const fn = arrow(); // TypeError: arrow is not a constructor
+```
+
+> When a function is invoked with the new keyword, then the function is known as a constructor function and returns a new instance.
