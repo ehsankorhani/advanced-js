@@ -456,5 +456,33 @@ person.greeting = greetingOut;
 person.greeting();
 ```
 
+<br />
+
+## Immutability
+
+An immutable object is an object whose state cannot be modified after it is created.
+
+Primitive data types are immutable. We cannot change their value after they are created.
+
+```js
+let name = 'Alfie';
+
+name[0] = 'X';
+
+console.log(name); // Alfie
+```
+
+Non-primitive types - such as Objects, arrays, functions and classes - are mutable.
+
+```js
+let colors = [ 'Red', 'Green', 'Blue' ];
+
+colors[0] = 'Pink';
+
+console.log(colors); // [ 'Pink', 'Green', 'Blue' ]
+```
+
+As stated before - in By Reference section - a copy of an object can alter the original object properties. That can cause confusion and unexpected situation in a program.
+
 
 
