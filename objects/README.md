@@ -484,5 +484,78 @@ console.log(colors); // [ 'Pink', 'Green', 'Blue' ]
 
 As stated before - in By Reference section - a copy of an object can alter the original object properties. That can cause confusion and unexpected situation in a program.
 
+```js
+const cars = [ 'Honda', 'BMW' ];
+const newCars = cars;
 
+newCars.push('Jaguar');
 
+console.log(cars); // [ 'Honda', 'BMW', 'Jaguar' ]
+```
+
+**Best Practice:** Make objects and arrays *immutable*.
+
+### Object.freeze()
+
+With this method, properties can’t be added, deleted, or changed in objects.
+
+```js
+const person = Object.freeze({
+  name: 'Alfie'
+});
+
+const newPerson = person;
+
+newPerson.name = 'John';
+
+console.log(person.name); // Alfie
+console.log(newPerson.name); // Alfie
+```
+
+**Note:** ```freeze``` will perform a *shallow freeze*. You need to implement a *deep freeze* code to prevent nested objects from modification.
+
+### Modifying an immutable object
+
+In order to alter a property on an object, you need to create a new instance of that object.
+
+```Spread``` operator can be handy.
+
+```js
+const person = Object.freeze({
+  name: 'Alfie'
+});
+
+const newPerson = { ...person, name: 'Jane', age: 28 }
+
+console.log(person.name); // Alfie
+console.log(newPerson.name); // Jane
+console.log(newPerson.age); // 28
+```
+
+```destructuring``` is also useful to remove a property.
+
+```js
+const { age, ...newPerson3 } = newPerson2;
+
+console.log(newPerson3); // { name: 'Jane' }
+```
+
+It's always a good practice to create a new clone of an object when it is passed to a function.
+
+```js
+function greeting(person) {
+  const newPerson = Object.assign({}, person);
+
+  newPerson.name = 'Jane';
+
+  console.log(`Hi ${newPerson.name}`); // Hi Jane
+}
+
+const person2 = { name: 'Alfie' }
+
+greeting(person);
+
+console.log(person.name); // Alfie
+```
+
+```Spread``` operator can be used in this case too.
