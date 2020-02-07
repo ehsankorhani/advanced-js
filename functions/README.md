@@ -264,3 +264,106 @@ const fn = arrow(); // TypeError: arrow is not a constructor
 ```
 
 > When a function is invoked with the new keyword, then the function is known as a constructor function and returns a new instance.
+
+<br />
+
+## Function object
+
+Because functions are *object* we access or call their properties and methods.
+<br />
+Functions have properties such as:
+- name
+- length
+- constructor
+- prototype (will be discussed in separate module)
+
+And methods including:
+- apply()
+- call()
+- bind()
+
+### Build-in properties
+
+### ```name```
+Returns the read-only *contextual name* of a function - if it has one.
+
+```js
+const greeting = function(name) {
+  return `Hi ${name}`;
+}
+
+console.log(greeting.name); // greeting
+```
+
+### ```length```
+Returns number of function named parameters.
+
+```js
+const greeting = function(name) {
+  return `Hi ${name}`;
+}
+
+console.log(greeting.length); // 1
+```
+
+### ```constructor```
+Returns the name of the function constructor.
+
+```js
+const greeting = function(name) {
+  return `Hi ${name}`;
+}
+
+const newGreeting = new greeting('Alfie')
+
+console.log(greeting.constructor); // [Function: Function]
+console.log(newGreeting.constructor); // [Function: greeting]
+```
+
+### Build-in methods
+These methods are used to control the invocation of the function.
+
+### ```call```
+**call** and **apply** can be used to invoke a function on an object. <br />
+First parameter of ```call()``` sets the <u>this</u> value which is the object upon which the function is invoked.
+
+Any parameter after will be associated to the function arguments.
+
+```js
+const person1 = {
+  name: 'John'
+}
+
+const person2 = {
+  name: 'Jane'
+}
+
+const greeting = function (city, country) {
+  console.log(`Hi ${this.name}. Welcome to ${city} in ${country}.`)
+}
+
+greeting.call(person1, 'Sydney', 'Australia') // Hi John. Welcome to Sydney in Australia.
+greeting.call(person2, 'Tokyo', 'Japan') // Hi Jane. Welcome to Tokyo in Japan.
+```
+
+### ```apply```
+Is similar to ```call()``` except that is receives two parameters and second parameter is an array of function arguments.
+
+```js
+greeting.apply(person1, ['Sydney', 'Australia']) // Hi John. Welcome to Sydney in Australia.
+greeting.apply(person2, ['Tokyo', 'Japan']) // Hi Jane. Welcome to Tokyo in Japan.
+```
+
+### ```bind```
+Adds a context to a function.
+
+
+<!-- --------------------------- -->
+
+<br /> 
+
+---  
+
+## IIFE (Immediately Invokable Function Expression)
+
+## Pure Functions

@@ -24,7 +24,7 @@ When a function makes a nested call, the following happens:
 
 <br />
 
-## Rest parameters
+## Rest [parameters]
 
 Rest parameter syntax allows a function to be called with any number of arguments.
 
@@ -55,9 +55,9 @@ foo();
 
 <br />
 
-## Spread
+## Spread [operator]
 
-```Rest``` syntax was converting a *list of parameters* to an *Array*. ```Spread``` does the opposite and converts an *Array* to a *list of parameters*.
+```Rest``` syntax was converting a *list of parameters* to an *Array*. ```Spread``` does the opposite and converts an *Array* (or any iterable) to a *list of parameters*.
 
 ```js
 function foo(param1, param2, param3) {
@@ -71,7 +71,7 @@ const arr = [1, 5, 7, 2];
 foo(...arr)
 ```
 
-In the above example it is like we are calling the ```foo``` function as:
+The above example is the same as if we were calling the ```foo``` function with:
 
 ```js
 foo(1, 5, 7, 2)
@@ -84,6 +84,7 @@ const arr1 = [1, 5, 7, 2];
 const arr2 = [4, 15];
 
 foo(10, ...arr1, ...arr2, 12);
+// foo (10, 1, 5, 7, 2, 4, 15, 12);
 ```
 
 The spread syntax is useful when you want to pass an array to a function that normally require a list of many arguments, i.e. ```Math.max()```.
