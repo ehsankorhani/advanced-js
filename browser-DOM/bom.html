@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser Object Model</title>
+</head>
+<body>
+  <iframe name="myFrame" width="700" height="400" scrolling="auto"></iframe>
+  
+  <script>
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+    
+
+    console.log(`Window width is ${windowWidth}`)
+    console.log(`Window height is ${windowHeight}`)
+
+    window.frames[0].location = "https://www.ecma-international.org";
+
+    //window.open("", newWindow, "width=500, height=500");
+//window.frames[0].location = "http://net-informations.com";
+//window.close();
+
+//window1.moveTo(500, 300);
+//window1.focus();
+  </script>
+</body>
+</html>
