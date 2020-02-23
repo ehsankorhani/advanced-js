@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browser Custom Events</title>
+
+  <style>
+    .highlight {
+      background-color: gold;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <p class="greeting">Hello World!</p>
+
+    <p class="something1" id="listener">Listener 1</p>
+    <p class="something2" id="listener">Listener 2</p>
+  </div>
+
+  <!-- <script>
+    const el = document.querySelector('.greeting');
+    const el2 = document.querySelector('.something');
+
+    const ce = new CustomEvent('greeting');
+
+    el2.addEventListener('greeting', (e) => {
+      console.log(`${e.target} is listening`)
+
+      el2.classList.add('highlight');
+    })
+
+    el.addEventListener('click', (e) => {
+      console.log(`${e.target} was clicked`)
+            
+      dispatchEvent(ce);      
+    })
+    
+
+  </script> -->
+
+  <!-- <script>
+    const el = document.querySelector('.greeting');
+    const el2 = document.querySelector('.something');
+
+    const evt = new Event('greeting');
+
+    document.addEventListener('greeting', (e) => {
+      el2.classList.add('highlight');
+    })
+
+    el.addEventListener('click', (e) => {
+      console.log(`${e.target} was clicked`)
+            
+      document.dispatchEvent(evt);      
+    })    
+  </script> -->
+
+  <!-- <script>
+    const el = document.querySelector('.greeting');
+    const el1 = document.querySelector('.something1');
+    const el2 = document.querySelector('.something2');
+
+    const foo = () => {
+      return 'I was listened';
+    }
+
+    const evt = new CustomEvent('greeting', {
+      cancelable: true,
+      detail: { callback: foo }
+    });
+
+    el1.addEventListener('greeting', (e) => {
+      e.preventDefault();
+      el1.classList.add('highlight');
+
+      const response = e.detail.callback();
+      console.log('response:', response);
+    })
+
+    el2.addEventListener('greeting', (e) => {
+      e.preventDefault();
+      el2.classList.add('highlight');
+    })
+
+    el.addEventListener('click', (e) => {
+      console.log(`${e.target} was clicked`)
+
+      //console.log(`typeof window.greeting:`, typeof window.greeting);
+
+      // The return value is false if event is cancelable and at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+      const listener1 = !el1.dispatchEvent(evt);
+      const listener2 = !el2.dispatchEvent(evt);
+      let res = listener1 || listener2;
+
+      console.log(`res:`, res);
+    })
+
+
+  </script> -->
+
+  <!-- Using return value from dispatchEvent to see if a listener cancels the event -->
+  <!-- <script>
+    const el = document.querySelector('.greeting');
+    const el1 = document.querySelector('.something1');
+    const el2 = document.querySelector('.something2');
+
+    const evt = new CustomEvent('greeting', { cancelable: true });
+
+    el.addEventListener('click', (e) => {
+      /* The return value is false if event is cancelable and at least one of the event handlers 
+      which handled this event called Event.preventDefault(). Otherwise it returns true. */
+      const listener1 = !el1.dispatchEvent(evt);
+      const listener2 = !el2.dispatchEvent(evt);
+      let isListened = listener1 || listener2;
+
+      console.log(`event was listened: ${isListened}`);
+    })
+
+    el1.addEventListener('greeting', (e) => {
+      e.preventDefault();
+      el1.classList.add('highlight');
+    })
+
+    el2.addEventListener('greeting', (e) => {
+      e.preventDefault();
+      el2.classList.add('highlight');
+    })
+
+  </script> -->
+
+  <!-- Using promise to check if a listener resolves the promise -->
+  <!-- <script>
+    const el = document.querySelector('.greeting');
+    const el1 = document.querySelector('.something1');
+    const el2 = document.querySelector('.something2');
+
+    el.addEventListener('click', (e) => {
+      const promise = new Promise(function (resolve, reject) {
+        const evt = new CustomEvent('greeting', {
+          detail: { resolve: resolve }
+        });
+
+        el1.dispatchEvent(evt);
+        el2.dispatchEvent(evt);
+      });
+
+      promise.then((data) => {
+        console.log('promise resolved:', data);
+      });
+
+      console.log('promise:', promise);      
+    })
+
+
+    el1.addEventListener('greeting', (e) => {
+      el1.classList.add('highlight');
+      e.detail.resolve('el1 listened');
+    })
+
+    el2.addEventListener('greeting', (e) => {
+      el2.classList.add('highlight');
+      e.detail.resolve('el2 listened');
+    })
+  </script> -->
+</body>
+
+</html>

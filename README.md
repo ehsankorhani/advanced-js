@@ -10,6 +10,7 @@ Chapter 3 - **Objects**
 
 
 ### Reference
+[MDN web docs - Web APIs](https://developer.mozilla.org/en-US/docs/Web/API)
 [The Modern JavaScript Tutorial](https://javascript.info/)
 <br />
 [JavaScript: Understanding the Weird Parts](https://www.udemy.com/course/understand-javascript/)
