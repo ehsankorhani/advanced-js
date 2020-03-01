@@ -15,15 +15,13 @@
 
 <body>
   <div>
-    <button onclick="foo()">Click Me!</button>
-
     <div class="container">
       <p class="greeting">----------------</p>
     </div>
   </div>
 
   <script>
-    const el = document.querySelector('.greeting')
+    const elem = document.querySelector('.greeting')
     const evt = new CustomEvent('greeting', {
       detail: {
         name: 'Alfie',
@@ -31,12 +29,12 @@
       }
     })
 
-    const foo = (e) => {
+    window.setTimeout(() => {  
       document.dispatchEvent(evt)
-    }
+    }, 2000)
 
     document.addEventListener('greeting', (e) => {
-      el.innerHTML = `Greeting ${e.detail.salutation} ${e.detail.name}`
+      elem.innerHTML = `Greeting ${e.detail.salutation} ${e.detail.name}`
     })
   </script>
 
