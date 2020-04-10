@@ -111,6 +111,9 @@ promise.catch(error => {
 })
 ```
 
+Note: when a promise rejects or an error occurs, the control jumps to the closest rejection handler. <br>
+If no ```.catch``` is defined, the execution will break.
+
 ### finally
 The *foo()* always runs when adding ```.finally(foo)``` to a promise.
 
@@ -126,7 +129,7 @@ Technically we can add many ```.then``` to a single promise. Each of these ```.t
 
 ```js
 const promise = new Promise((resolve, reject) => {
-  setTimeout(() => resolve(1), 1000);
+  setTimeout(() => resolve(1), 1000)
 });
 
 promise.then((result) => {
@@ -135,29 +138,103 @@ promise.then((result) => {
 });
 
 promise.then((result) => {
-  console.log(result); // --> 1
+  console.log(result) // --> 1
   return result * 2;
 });
 ```
 
 
-## Chaining Promises
+### Chaining Promises
 Promises are chainable. That's because ```promise.then``` returns another promise.
 
 ```js
 new Promise((resolve, reject) => {
-  setTimeout(() => resolve(1), 1000);
+  setTimeout(() => resolve(1), 1000)
 }).then((result) => {
-  console.log(result); // --> 1
+  console.log(result) // --> 1
   return result * 2;
 }).then((result) => {
-  console.log(result); // --> 2
+  console.log(result) // --> 2
 });
 ```
 
+<br>
 
-## When to use Promise
+### When to use Promise
 We use *promises* whenever we want to use an asynchronous or blocking code.
 
 > Promises are eager, meaning that a promise will start doing whatever task you give it as soon as the promise constructor is invoked. If you need lazy, check out observables or tasks.<br>
 > [JavaScript January](https://www.javascriptjanuary.com/blog/the-promise-of-a-better-future)
+
+
+<br>
+
+### Promise methods
+
+#### Promise.all
+We use this when we want to wait until many promises finish executing.
+
+```js
+const promise = Promise.all([...promises...])
+```
+
+This promise resolves when all the listed promises are settled:
+
+```js
+Promise.all([
+  new Promise(resolve => setTimeout(() => resolve(1), 3000)), // 1
+  new Promise(resolve => setTimeout(() => resolve(2), 2000)), // 2
+  new Promise(resolve => setTimeout(() => resolve(3), 1000))  // 3
+]).then(() => {
+  console.log(`all done!`)
+}).catch(error => {
+  console.log(`error: ${error}`)
+})
+```
+
+<br>
+
+#### Promise.allSettled
+Gets the results of all given promises, even if some of them reject.
+
+#### Promise.race
+Waits only for the first settled promise and gets its result or its error.
+
+
+
+<br />
+
+## Async/Await
+```async``` and ```await``` syntax make the asynchronous syntax look prettier and easier to understand, without the ```.then``` and ```.catch```.
+
+```js
+async function foo() {
+  return 1;
+}
+```
+
+The word ```async``` before a function means that the function will return a promise.
+
+Therefore, this code is valid:
+
+```js
+foo().then(result => { console.log(result) }) // 1
+```
+
+The keyword ```await``` makes JavaScript to pause until that promise settles and returns its result.
+
+
+```js
+async function foo() {
+
+  const slow = await slowFunction()
+  console.log(slow)
+
+  return 1;
+}
+
+console.log(`other logics...`)
+```
+
+
+While the ```async``` function is paused, the calling function continues running.
