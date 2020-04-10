@@ -122,15 +122,42 @@ promise.finally(() => {
 
 In *finally* we don’t know whether the promise is successful or not. it's is a good handler for performing cleanups.
 
+Technically we can add many ```.then``` to a single promise. Each of these ```.then```'s can perform a separate logic.
 
-<!-- ## Chaining Promises
-Promises are chainable.
+```js
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 1000);
+});
 
+promise.then((result) => {
+  console.log(result); // --> 1
+  return result * 2;
+});
+
+promise.then((result) => {
+  console.log(result); // --> 1
+  return result * 2;
+});
+```
+
+
+## Chaining Promises
+Promises are chainable. That's because ```promise.then``` returns another promise.
+
+```js
+new Promise((resolve, reject) => {
+  setTimeout(() => resolve(1), 1000);
+}).then((result) => {
+  console.log(result); // --> 1
+  return result * 2;
+}).then((result) => {
+  console.log(result); // --> 2
+});
+```
 
 
 ## When to use Promise
- -->
+We use *promises* whenever we want to use an asynchronous or blocking code.
 
-
----
-<!-- Promises are eager, meaning that a promise will start doing whatever task you give it as soon as the promise constructor is invoked. If you need lazy, check out observables or tasks. -->
+> Promises are eager, meaning that a promise will start doing whatever task you give it as soon as the promise constructor is invoked. If you need lazy, check out observables or tasks.<br>
+> [JavaScript January](https://www.javascriptjanuary.com/blog/the-promise-of-a-better-future)
