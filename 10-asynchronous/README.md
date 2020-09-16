@@ -6,6 +6,9 @@ Asynchronous actions are functions that initiate now but finish later.
 
 JavaScript is single threaded. Multiple parts of code cannot run at the same time. Callback and asynchronous functions are a way around the single-threaded nature of JavaScript.
 
+<br>
+<br>
+
 ## Callback
 Callback is a function that runs after another function has executed.
 
@@ -33,6 +36,7 @@ const fail = (error) => {
 greeting('Alfie', done, fail)
 ```
 
+<br>
 <br />
 
 ## Promise
@@ -78,10 +82,13 @@ const promise = new Promise((resolve, reject) => {
   }  
 })
 ```
+<br>
 
 ### then, catch, finally
 
 We cannot directly access properties ```state``` and ```result``` of the Promise object. We can use the methods ```.then```, ```.catch``` or```.finally``` for that. 
+
+<br>
 
 #### then
 
@@ -102,6 +109,8 @@ promise.then(result => {
 })
 ```
 
+<br>
+
 ### catch
 Instead of using the second argument of ```.then``` we can use ```.catch```:
 
@@ -113,6 +122,8 @@ promise.catch(error => {
 
 Note: when a promise rejects or an error occurs, the control jumps to the closest rejection handler. <br>
 If no ```.catch``` is defined, the execution will break.
+
+<br>
 
 ### finally
 The *foo()* always runs when adding ```.finally(foo)``` to a promise.
@@ -143,6 +154,7 @@ promise.then((result) => {
 });
 ```
 
+<br>
 
 ### Chaining Promises
 Promises are chainable. That's because ```promise.then``` returns another promise.
@@ -165,7 +177,6 @@ We use *promises* whenever we want to use an asynchronous or blocking code.
 
 > Promises are eager, meaning that a promise will start doing whatever task you give it as soon as the promise constructor is invoked. If you need lazy, check out observables or tasks.<br>
 > [JavaScript January](https://www.javascriptjanuary.com/blog/the-promise-of-a-better-future)
-
 
 <br>
 
@@ -197,14 +208,17 @@ Promise.all([
 #### Promise.allSettled
 Gets the results of all given promises, even if some of them reject.
 
+<br>
+
 #### Promise.race
 Waits only for the first settled promise and gets its result or its error.
 
 
-
+<br>
 <br />
 
 ## Async/Await
+
 ```async``` and ```await``` syntax make the asynchronous syntax look prettier and easier to understand, without the ```.then``` and ```.catch```.
 
 ```js
@@ -213,7 +227,7 @@ async function foo() {
 }
 ```
 
-The word ```async``` before a function means that the function will return a promise.
+The word ```async``` before a function means that the function will return a **resolved promise**.
 
 Therefore, this code is valid:
 
@@ -221,20 +235,156 @@ Therefore, this code is valid:
 foo().then(result => { console.log(result) }) // 1
 ```
 
-The keyword ```await``` makes JavaScript to pause until that promise settles and returns its result.
+We could as well return a promise explicitly:
 
+```js
+async function foo() {
+  return Promise.resolve(1);
+}
+```
+
+<br>
+
+## ```await```
+
+The keyword ```await``` makes JavaScript to pause until that promise settles and returns its result.
 
 ```js
 async function foo() {
 
-  const slow = await slowFunction()
+  const slow = await slowFunction() // wait until the promise resolves
   console.log(slow)
-
-  return 1;
 }
+
+foo()
 
 console.log(`other logics...`)
 ```
+```
+other logics...
+*result of slow function*
+```
 
+While the ```async``` function is paused, the calling function continues running. CPU continues to execute the rest of the logic until promise is resolved.
 
-While the ```async``` function is paused, the calling function continues running.
+<br>
+
+### ```await``` requires an ```async``` function
+
+We cannot ```wait``` on regular functions. The ones without ```async```. Also, it's not possible to use ```await``` in the top-level context:
+
+```js
+const slow = await fetch('https://www.example.com/car.json')
+const car = await slow.json();
+// SyntaxError: await is only valid in async function
+```
+
+As a workaround we can wrap it inside an anonymous function:
+
+```js
+(async () => {
+  const slow = await fetch('https://www.example.com/car.json')
+  const car = await slow.json();
+  //...
+})();
+```
+
+<br>
+
+### "thenables"
+
+A non promise object can contain a function called ```then```. Therefore it's possible to call that object as ```<object-name>.then```. This is called a *promise-compatible* object.
+
+But ```wait``` can use it only because it supports ```.then```.
+
+```js
+class Thenable {
+  constructor(val) {
+    this.val = val;
+  }
+
+  then(resolve, reject) {
+    setTimeout(() => resolve(this.val * 2), 1000);
+  }
+};
+
+async function baz() {
+  let result = await new Thenable(1);
+  console.log(result); // 2
+}
+
+baz();
+```
+
+<br>
+
+### Async Class 
+
+Like other functions, a class async function should be declared with an ```async``` keyword:
+
+```js
+class Waiter {
+  async wait() {
+    return await Promise.resolve(1);
+  }
+}
+```
+
+<br>
+
+## Error handling
+
+### try/catch
+
+If promise is rejected, it will throw an error:
+
+```js
+async function foo() {
+  await Promise.reject(new Error("oops!"))
+  // same as: throw new Error("oops!") but with delay
+}
+```
+
+We can use a ```try/catch``` to wrap around the any amount of asynchronous operations:
+
+```js
+async function qux() {
+
+  try {
+    const response = await fetch('https://www.example.com/car');
+    const car = await response.json();
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+qux();
+```
+
+<br>
+
+### ```.catch```
+
+Although try/catch is more convenient to use, in some occasions such as top-level context we can use ```.catch``` too:
+
+```js
+async function qux() {
+  const response = await fetch('https://www.example.com/car');
+}
+
+qux().catch(result => console.log(result));
+```
+
+<br>
+
+### ```Promise.all```
+
+In case we need to wait for multiple promises we can wrap all these operations inside a ```Promise.all```:
+
+```js
+let results = await Promise.all([
+  fetch(url1),
+  fetch(url2),
+  //...
+]);
+```
