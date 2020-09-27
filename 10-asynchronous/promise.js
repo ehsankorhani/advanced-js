@@ -22,3 +22,31 @@ promise.catch(error => {
 promise.finally(() => { 
   console.log(`stop loading indicator...`)
 })
+
+// --------------------
+
+// new Promise((resolve, reject) => {
+//   setTimeout(() => reject('An error occurred!'), 1000)
+// }).then((result) => {
+//   console.log(result)
+//   return result * 2;
+// }).then((result) => {
+//   console.log(result)
+//   return result * 4;
+// }).catch((err) => {
+//   console.log(`first catch: ${err}`) // first catch: An error occurred!
+// }).catch((err) => {
+//   console.log(`second catch: ${err}`)
+// });
+
+// new Promise((resolve, reject) => {
+//   throw new Error("Oops!");
+//   // or
+//   reject(new Error("Oops!"));
+// }).catch((err) => {
+//   console.log(err) // Error: Oops!
+// });
+
+// new Promise((resolve, reject) => {
+//   setTimeout(() => reject('An error occurred!'), 1000)
+// });

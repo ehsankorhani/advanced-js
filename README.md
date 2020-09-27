@@ -2,7 +2,7 @@
 
 This repo is going to discuss a more advanced topics of JavaScript language. This is journey to examine the different, wierd or specific features of JavaScript and also to practice the better ways to coding.
 
-## Section 1
+## Section 1 - The language
 
 Chapter 1 - **Introduction**
 
@@ -30,7 +30,7 @@ Chapter 12 - **Modules**
 
 Chapter 13 - **Miscellaneous**
 
-## Section 2
+## Section 2 - Browser: Document, Events, Interfaces
 
 Chapter 14 - **Document Object Model**
 
@@ -43,6 +43,14 @@ Chapter 17 - **Forms**
 Chapter 18 - **Resource loading**
 
 Chapter 19 - **Miscellaneous**
+
+## Section 3 - Libraries
+
+Chapter 20 - **fetch**
+
+## Section 4 - Design Patterns
+
+## Section 5 - Algorithms
 
 <br>
 <br>

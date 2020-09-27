@@ -37,7 +37,46 @@ greeting('Alfie', done, fail)
 ```
 
 <br>
+
+### Callback in callback
+
+The callbacks are functions, and an can call other passed in functions in the same way they have been called. This chain of nested blocks can cause unnecessary complexity in code which is known as *Callback hell*. 
+
+```js
+func1(args, () => {
+  func2(args, () => {
+    func3(args, () => {
+      // And so on…
+    });
+  });
+});
+```
+
+<br>
+
+### Error handling
+
+A good practice to handle errors inside - nested - callback functions is to:
+1. Reserve the first argument for the errors - if occurs.
+2. The test of the arguments are for the success results.
+
+```js
+function func1(error, task) {
+  if (error) {
+    handleError(error);
+  } else {
+    // ...
+    mainFunc(task, func2);
+  }
+}
+```
+
+Overall, it's better to avoid nested callbacks.
+
+<br>
 <br />
+
+---
 
 ## Promise
 
@@ -123,6 +162,20 @@ promise.catch(error => {
 Note: when a promise rejects or an error occurs, the control jumps to the closest rejection handler. <br>
 If no ```.catch``` is defined, the execution will break.
 
+```js
+new Promise((resolve, reject) => {
+  setTimeout(() => reject('An error occurred!'), 1000)
+}).then((result) => {
+  return result * 2;
+}).then((result) => {
+  return result * 4;
+}).catch((err) => {
+  console.log(`first catch: ${err}`) // first catch: An error occurred!
+}).catch((err) => {
+  console.log(`second catch: ${err}`)
+});
+```
+
 <br>
 
 ### finally
@@ -156,7 +209,60 @@ promise.then((result) => {
 
 <br>
 
-### Chaining Promises
+## Exception handling
+
+> The code of a promise executor and promise handlers has an "invisible ```try..catch```" around it. If an exception happens, it gets caught and treated as a rejection.
+
+```js
+new Promise((resolve, reject) => {
+  throw new Error("Oops!");
+  // or
+  reject(new Error("Oops!"));
+}).catch((err) => {
+  console.log(err) // Error: Oops!
+});
+```
+
+The ```.catch``` catches explicit rejections and accidental errors in the handlers.
+
+<br>
+
+### Rethrowing
+
+If we don't want to handle an specific error inside a ```.catch``` we can ```throw``` it:
+
+```js
+new Promise((resolve, reject) => {
+  throw new Error("Oops!");
+}).catch((err) => {
+  if (error instanceof URIError) {
+    // handle it
+  } else {
+    alert("Can't handle such error");
+    throw error; // throwing this or another error jumps to the next catch
+  }
+});
+```
+
+<br>
+
+### Unhandled rejections
+
+Like normal exceptions if a Promise rejection doesn't have a ```.catch``` the JavaScript code will terminate:
+
+```js
+new Promise((resolve, reject) => {
+  setTimeout(() => reject('An error occurred!'), 1000)
+});
+```
+```
+(node:32551) UnhandledPromiseRejectionWarning: An error occurred!
+(node:32551) UnhandledPromiseRejectionWarning: Unhandled promise rejection. 
+```
+
+<br>
+
+## Chaining Promises
 Promises are chainable. That's because ```promise.then``` returns another promise.
 
 ```js
@@ -168,6 +274,33 @@ new Promise((resolve, reject) => {
 }).then((result) => {
   console.log(result) // --> 2
 });
+```
+
+<br>
+
+### Thenables
+
+A non promise object can contain a function called ```then```. Therefore it's possible to call that object as ```<object-name>.then```. This is called a *promise-compatible* object. Though it's not a Promise, it will be treated the same way.
+
+But ```wait``` can use it only because it supports ```.then```.
+
+```js
+class Thenable {
+  constructor(val) {
+    this.val = val;
+  }
+
+  then(resolve, reject) {
+    setTimeout(() => resolve(this.val * 2), 1000);
+  }
+};
+
+async function baz() {
+  let result = await new Thenable(1);
+  console.log(result); // 2
+}
+
+baz();
 ```
 
 <br>
@@ -213,9 +346,25 @@ Gets the results of all given promises, even if some of them reject.
 #### Promise.race
 Waits only for the first settled promise and gets its result or its error.
 
+<br>
+
+### Promises vs. Callbacks
+The benefits of promises includes:
+1. They allow the natural order. First the main function and then the outcome (```then```). In callbacks we write the callback before the main function.
+2. The ```.then``` can be called as many times as needed, but there is only one callback function.
 
 <br>
-<br />
+
+### Microtasks
+
+> Promise handlers .then/.catch/.finally are always asynchronous.
+
+Even if a Promise resolves immediately, the code after it will execute first.
+
+<br>
+<br>
+
+---
 
 ## Async/Await
 
@@ -287,33 +436,6 @@ As a workaround we can wrap it inside an anonymous function:
   const car = await slow.json();
   //...
 })();
-```
-
-<br>
-
-### "thenables"
-
-A non promise object can contain a function called ```then```. Therefore it's possible to call that object as ```<object-name>.then```. This is called a *promise-compatible* object.
-
-But ```wait``` can use it only because it supports ```.then```.
-
-```js
-class Thenable {
-  constructor(val) {
-    this.val = val;
-  }
-
-  then(resolve, reject) {
-    setTimeout(() => resolve(this.val * 2), 1000);
-  }
-};
-
-async function baz() {
-  let result = await new Thenable(1);
-  console.log(result); // 2
-}
-
-baz();
 ```
 
 <br>
