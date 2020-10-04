@@ -30,6 +30,8 @@ Chapter 12 - **Modules**
 
 Chapter 13 - **Miscellaneous**
 
+<br>
+
 ## Section 2 - Browser: Document, Events, Interfaces
 
 Chapter 14 - **Document Object Model**
@@ -44,11 +46,17 @@ Chapter 18 - **Resource loading**
 
 Chapter 19 - **Miscellaneous**
 
+<br>
+
 ## Section 3 - Libraries
 
 Chapter 20 - **fetch**
 
+<br>
+
 ## Section 4 - Design Patterns
+
+<br>
 
 ## Section 5 - Algorithms
 
@@ -56,6 +64,6 @@ Chapter 20 - **fetch**
 <br>
 
 ### References
-* [MDN web docs - Web APIs](https://developer.mozilla.org/en-US/docs/Web/API)
 * [The Modern JavaScript Tutorial](https://javascript.info/)
+* [MDN web docs - Web APIs](https://developer.mozilla.org/en-US/docs/Web/API)
 * [JavaScript: Understanding the Weird Parts](https://www.udemy.com/course/understand-javascript/)
