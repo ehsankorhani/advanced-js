@@ -34,27 +34,57 @@ Chapter 13 - **Miscellaneous**
 
 ## Section 2 - Browser: Document, Events, Interfaces
 
-Chapter 14 - **Document Object Model**
+Chapter 1 - **Document Object Model**
 
-Chapter 15 - **Events**
+Chapter 2 - **Events**
 
-Chapter 16 - **UI Events**
+Chapter 3 - **UI Events**
 
-Chapter 17 - **Forms**
+Chapter 4 - **Forms**
 
-Chapter 18 - **Resource loading**
+Chapter 5 - **Resource loading**
 
-Chapter 19 - **Miscellaneous**
+Chapter 6 - **Miscellaneous**
 
 <br>
 
 ## Section 3 - Libraries
 
-Chapter 20 - **fetch**
+Chapter 1 - **fetch**
 
 <br>
 
 ## Section 4 - Design Patterns
+
+Chapter 1 - **Factory method**
+
+Chapter 2 - **Builder**
+
+Chapter 3 - **Singleton**
+
+Chapter 4 - **Strategy**
+
+Chapter 5 - **Iterator**
+
+Chapter 6 - **Observer**
+
+Chapter 7 - **Proxy**
+
+Chapter 8 - **Medatior**
+
+Chapter 9 - **Visitor**
+
+Chapter 10 - **Adapter**
+
+Chapter 11 - **Prototype**
+
+Chapter 12 - **Chain Of Responsibility**
+
+Chapter 13 - **Decorator**
+
+Chapter 14 - **Facade**
+
+Chapter 15 - **Module**
 
 <br>
 
