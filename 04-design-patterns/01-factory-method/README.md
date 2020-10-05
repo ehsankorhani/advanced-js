@@ -8,4 +8,5 @@ The pattern suggests that you replace direct object construction calls (using th
 
 ## Applicability
 
-// Action Mapping
+* When we don’t know beforehand the exact types and dependencies of the objects and we want to defer that to run time.
+* Can reduce code complexity in decision making matrixes.
