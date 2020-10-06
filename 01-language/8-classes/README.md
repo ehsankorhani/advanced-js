@@ -197,3 +197,109 @@ The solution is to:
     setTimeout(() => alfie.introduce(), 1000); // My name is Alfie
     ```
 The class field ```introduce = () => {...}``` is created on a per-object basis
+
+<br>
+
+---
+## Inheritance
+
+With inheritance classes can extend the functionality of another class.
+
+To inherit from another class we use the ```extends``` keyword.
+
+Suppose we have a super class ```Car```:
+
+```js
+class Car {
+    constructor(model) {
+        this.speed = 0;
+        this.model = model;
+    }
+
+    accelerate(speed) {
+        this.speed = speed;
+        console.log(`${this.model} drives with ${this.speed} KPH.`);
+    }
+}
+```
+
+A subclass ```Mercedes``` can extend it's functionality with:
+
+```js
+class Tesla extends Car {
+    autoPark() {
+        console.log(`${this.model} parks automatically.`);
+    }
+}
+```
+
+And we can call ```Car``` method on this object:
+
+```js
+const myTesla = new Tesla("Model S");
+myTesla.accelerate(180); // Model S drives with 180 KPH.
+myTesla.autoPark(); // Model S parks automatically.
+```
+
+And we can check that:
+
+```js
+myTesla instanceof Car; // true
+```
+
+<br>
+
+### Method overriding
+
+A method in sub-class with the same name of a method in the super class will override it's functionality:
+
+```js
+class Tesla extends Car {
+    ...
+
+    accelerate() {
+        console.log(`Tesla ${this.model} is going faster.`);
+    }
+}
+```
+```js
+myTesla.accelerate(); // Tesla Model S is going faster.
+```
+
+However, we are still able to call the methods in super class with: ```super.method_name()```.
+
+```js
+class Tesla extends Car {
+    ...
+
+    accelerate(speed) {
+        super.accelerate(speed);
+        console.log(`Tesla ${this.model} is going faster.`);
+    }
+}
+```
+```js
+myTesla.accelerate(180);
+// Model S drives with 180 KPH.
+// Tesla Model S is going faster.
+```
+
+> Arrow functions have no super.
+The outer function super will be called instead if available, or will raise an error.
+
+<br>
+
+### Constructor overriding
+
+> Constructors in inheriting classes must call ```super(...)```, and do it before using this.
+
+```js
+class Tesla extends Car {
+    constructor(model, range) {
+        super(model);
+        this.range = range;
+    }
+    
+    ...
+}
+```
