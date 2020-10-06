@@ -6,6 +6,8 @@ The pattern suggests that you replace direct object construction calls (using th
 
 <br>
 
+## Implementation
+
 ```js
 function CarFactory() { }
 
@@ -63,13 +65,14 @@ var carFactory = new CarFactory();
 var myX5 = carFactory.createCar({ type: "SUV", engine: "v8" });
 var myMiata = carFactory.createCar({ type: "Coupe" });
 
-myX5.start();
-myMiata.start();
+myX5.start(); // The v8 engine is starting...
+myMiata.start(); The v4 engine is starting...
 ```
 
 <br>
 
 ## Applicability
 
-* When we don’t know beforehand the exact types and dependencies of the objects and we want to defer that to run time.
-* Can reduce code complexity in decision making matrixes.
+* When we don’t know beforehand the exact types and dependencies of the objects and would want to leave this to run time.
+
+* Can help reduce the complexity of decision making matrixes
