@@ -199,6 +199,7 @@ The solution is to:
 The class field ```introduce = () => {...}``` is created on a per-object basis
 
 <br>
+<br>
 
 ---
 ## Inheritance
@@ -302,4 +303,93 @@ class Tesla extends Car {
     
     ...
 }
+```
+
+<br>
+<br>
+
+---
+## Static method and properties
+
+*Static* method is a method that assigns to the class function itself, not it's ```prototype```.
+
+```js
+class Car {
+    static staticMethod() {
+        console.log(this === Car)
+    }
+}
+
+Car.staticMethod(); // true
+```
+
+We cannot call the static method on class instance:
+
+```js
+var car = new Car();
+car.staticMethod(); // TypeError: car.staticMethod is not a function
+```
+
+The static method definition is similar to when we create the method on the class function directly:
+
+
+```js
+class Car { }
+
+Car.staticMethod = function() {
+    console.log(this === Car)
+};
+
+Car.staticMethod(); // true
+```
+
+similarly we cannot do:
+
+```js
+var car = new Car();
+car.staticMethod(); // TypeError: car.staticMethod is not a function
+```
+
+Normally we create static methods when they should belong to the class and not it's instances.
+
+```js
+class NumberUtil {
+    static addLeadingZero(num) {
+        return ('0' + num).slice(-2)
+    }
+}
+
+NumberUtil.addLeadingZero(7); // '07'
+```
+
+In the above example we do not care about the class instances. This method should always do the same thing.
+
+<br>
+
+### Static properties
+
+Are the same as a direct assignment to a class:
+
+```js
+class Car {
+    static type = 'vehicle';
+}
+
+// or
+
+Car.type = 'vehicle';
+```
+
+<br>
+
+### Inheritance
+
+Static method are inherited:
+
+```js
+class Tesla extends Car {
+    ...
+}
+
+Tesla.staticMethod(); // false
 ```
