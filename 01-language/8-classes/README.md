@@ -217,7 +217,6 @@ The class field `` `introduce = () => {...}` `` is created on a per-object basis
 <br>
 
 ---
-
 ## Inheritance
 
 With inheritance classes can extend the functionality of another class.
@@ -328,7 +327,6 @@ class Tesla extends Car {
 <br>
 
 ---
-
 ## Static method and properties
 
 *Static* method is a method that assigns to the class function itself, not it's `` `prototype` ``.
@@ -415,8 +413,8 @@ Tesla.staticMethod(); // false
 
 <br>
 <br>
----
 
+---
 ## Private and Protected
 
 > Protected properties are usually prefixed with an underscore `` `_` ``.
@@ -477,3 +475,99 @@ class Car {
 ```
 
 > This is a recent addition to the language. Not supported in JavaScript engines, or supported partially yet, requires polyfilling.
+
+
+<br>
+<br>
+
+--- 
+## Extending built-in classes
+
+We can extend classes such as ```Array``` and ```Map```.
+
+```js
+class PowerArray extends Array {
+  isEmpty() {
+    return this.length === 0;
+  }
+}
+
+let arr = new PowerArray(1, 2, 5, 10, 50);
+alert(arr.isEmpty()); // false
+```
+
+Every array method that receives this extended object will output the same type of object (unless we specify a special getter inside the class).
+
+<br>
+<br>
+
+--- 
+## The ```instanceof```
+
+This operator allows to check whether an *object* is of certain class type.<br>
+It similar to ```typeof``` operator that acts on *primitive* values.
+
+```js
+class Car {
+ //...
+}
+
+class Tesla extends Car {
+ //..
+}
+```
+```js
+const car = new Car();
+car instanceof Car; // true
+```
+
+And
+```js
+const myTesla = new Tesla();
+myTesla instanceof Car; // true
+```
+Because:
+```js
+
+myTesla.__proto__.__proto__ === Car.prototype; // true
+```
+
+
+Also every object is an instance of ```Object```:
+
+```js
+myTesla instanceof Object; // true
+```
+
+<br>
+<br>
+
+--- 
+## Mixins
+
+Mixins are an alternative way from inheritance to add features to a class.
+
+```js
+class Car {
+    constructor(model) {
+        this.model = model;
+    }
+}
+
+const smartMixin = {
+
+    autoPark() {
+        console.log(`${this.model} parks automatically.`);
+    }
+
+}
+```
+```js
+Object.assign(Car.prototype, smartMixin);
+
+const car = new Car('X5');
+car.autoPark(); // X5 parks automatically.
+```
+
+```Object.assign``` copies the methods into the car object and can actually override class original methods whn having same names.
+
