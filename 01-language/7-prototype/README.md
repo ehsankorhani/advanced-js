@@ -89,3 +89,85 @@ range
 ```
 
 > Almost all other key/value-getting methods, such as Object.keys, Object.values and so on ignore inherited properties.
+
+<br><br>
+
+---
+## Function prototype 
+
+The ```new``` operator sets the ``` [[Prototype]]``` for the new object (if F.prototype is an object).
+
+```js
+const car = {
+    type: 'vehicle'
+}
+
+function tesla(model) {
+    this.model = model;
+}
+
+tesla.prototype = car;
+
+const modelS = new tesla('modelS'); // modelS.__proto__ == car
+modelS.__proto__; // { type: 'vehicle' }
+```
+
+If we change the *tesla* prototype later, the *modelS* will still have *car* as the ```__proto__```, but the newly created object will get the new one.
+
+<br>
+
+### Default F.prototype
+
+Every function has the *prototype* property even if we don’t define it.
+
+```js
+function Boat(make) {}
+Boat.prototype; // Boat {}
+```
+
+The default *prototype* is an object with only one property which is the constructor and it points back to the function itself.
+
+```js
+Boat.prototype.constructor === Boat; // true
+```
+
+If we replace the default prototype, we will remove the constructor too. 
+
+To avoid that, we can add/remove properties to the default "prototype" instead:
+
+```js
+Boat.prototype.sail = () => {};
+```
+
+<br>
+<br>
+
+---
+## Prototype methods
+
+The ```__proto__``` is considered deprecated. Modern JavaScript uses these methods instead:
+
+- ```Object.create(proto, [descriptors])``` – creates an empty object with given proto as [[Prototype]].
+
+    ```js
+    const car = {
+        type: 'vehicle'
+    }
+
+    const tesla = Object.create(car);
+    tesla.type; // vehicle
+    ```
+
+- ```Object.getPrototypeOf(obj)``` – returns ```[[Prototype]]``` of ```obj```.
+    ```js
+    Object.getPrototypeOf(tesla) === car; // true
+    ```
+
+- ```Object.setPrototypeOf(obj, proto)``` – sets ```[[Prototype]]``` of ```obj``` to proto.
+    ```js
+    Object.setPrototypeOf(tesla, {}); // change the prototype of tesla to {}
+    ```
+
+
+
+<br>
