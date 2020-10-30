@@ -251,6 +251,60 @@ Math.pow(2, 10); // 2 in power 10 = 1024
 <br><br>
 
 ---
+## BigInt
+
+A bigint is created by appending n to the end of an integer literal or by calling the function BigInt:
+
+```js
+const bigint = 1234567890123456789012345678901234567890n;
+
+const bigintFromString = BigInt("1234567890123456789012345678901234567890");
+
+const bigintFromNumber = BigInt(10); // 10n
+```
+
+All operations on bigints return bigints.
+
+```js
+7n / 2n; // 3n
+```
+
+We cannot mix BigInt and other types:
+
+```js
+1n + 2; // Error
+
+1n + BigInt(2); // 3n
+
+Number(1n) + 2; // 3 
+```
+
+The unary plus operator `+value` is not supported.
+
+
+### Comparisons
+Comparison is allowed between *numbers* and *bugint*:
+
+```js
+2n > 1; // true
+
+1 == 1n; // true
+
+1 === 1n; // false
+```
+
+### Boolean operations
+BigInt acts like Numbers with truthy/falsy operations.
+
+
+
+
+
+
+
+<br><br>
+
+---
 ### References
 - [JavaScript data types and data structures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures)
 - [JavaScript Essentials: Types & Data Structures](https://codeburst.io/javascript-essentials-types-data-structures-3ac039f9877b)
