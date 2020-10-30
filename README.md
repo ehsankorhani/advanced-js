@@ -10,25 +10,27 @@ Chapter 2 - **Fundamentals**
 
 Chapter 3 - **Objects**
 
-Chapter 4 - **Data Types**
+Chapter 4 - **Primitive Data Types**
 
-Chapter 5 - **Functions**
+Chapter 5 - **Non-primitive Data Types**
 
-Chapter 6 - **Advanced Functions**
+Chapter 6 - **Functions**
 
-Chapter 7 - **Prototype**
+Chapter 7 - **Advanced Functions**
 
-Chapter 8 - **Classes**
+Chapter 8 - **Prototype**
 
-Chapter 9 - **Error Handling**
+Chapter 9 - **Classes**
 
-Chapter 10 - **Asynchronous**
+Chapter 10 - **Error Handling**
 
-Chapter 11 - **Generators**
+Chapter 11 - **Asynchronous**
 
-Chapter 12 - **Modules**
+Chapter 12 - **Generators**
 
-Chapter 13 - **Miscellaneous**
+Chapter 13 - **Modules**
+
+Chapter 14 - **Miscellaneous**
 
 <br>
 
@@ -94,6 +96,7 @@ Chapter 15 - **Module**
 <br>
 
 ### References
-* [The Modern JavaScript Tutorial](https://javascript.info/)
+
+* [The Modern JavaScript Tutorial](https://javascript.info/) - The main reference for most part of these articles
 * [MDN web docs - Web APIs](https://developer.mozilla.org/en-US/docs/Web/API)
 * [JavaScript: Understanding the Weird Parts](https://www.udemy.com/course/understand-javascript/)
