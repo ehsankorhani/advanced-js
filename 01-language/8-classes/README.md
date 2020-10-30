@@ -571,3 +571,8 @@ car.autoPark(); // X5 parks automatically.
 
 ```Object.assign``` copies the methods into the car object and can actually override class original methods whn having same names.
 
+<br><br>
+
+---
+### References
+- [The Complete Guide to JavaScript Classes](https://dmitripavlutin.com/javascript-classes-complete-guide/)
