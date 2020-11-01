@@ -296,11 +296,230 @@ Comparison is allowed between *numbers* and *bugint*:
 ### Boolean operations
 BigInt acts like Numbers with truthy/falsy operations.
 
+<br><br>
 
+---
+## Strings
 
+Strings are immutable and can’t be changed.
 
+```js
+let str = 'Hi';
 
+str[0] = 'h'; // error
+```
 
+### Backticks
+
+Allow us to embed any expression into the string, by wrapping it in `${…}`:
+
+```js
+console.log(`1 + 2 = ${1 + 2}`); // 1 + 2 = 3
+```
+
+It also allows a string to span multiple lines.
+
+<br>
+
+### Special characters
+
+| Character | Description |
+| :-------- | :---------- |
+| \n        | New line    |
+| \r        | Carriage return. Windows text files use a combination of two characters \r\n to represent a line break. |
+| \', \"    | Quotes      |
+| \\        | Backslash   |
+| \t        | Tab         |
+| \b        | Backspace |
+| \f        | Form Feed |
+| \xXX      | Unicode character with hexadecimal unicode, e.g. '\x7A' |
+| \uXXXX    | A unicode symbol with the hex code, e.g. \u00A9 |
+| \u{X…XXXXXX} | A unicode symbol with the given UTF-32 encoding. e.g. emojis |
+	
+<br>
+
+### properties and Methods
+
+#### Length
+```js
+`NEW START`.length; // 9
+```
+
+<br>
+
+#### Accessing characters
+
+Use square brackets `[pos]` or call the method `str.charAt(pos)`:
+
+```js
+let str = `Hello`;
+
+str[0]; // H
+tr.charAt(0); // H
+
+str[str.length - 1]; // o
+```
+
+When no character is found, [] returns undefined, and charAt returns an empty string.
+
+<br>
+
+#### Case
+
+```js
+'Interface'.toUpperCase(); // INTERFACE
+'Interface'.toLowerCase(); // interface
+```
+
+<br><br>
+
+#### Substring
+
+We can look for substrings in multiple ways:
+
+- `str.indexOf(substr, pos)`
+- `str.lastIndexOf(substr, pos)`
+- `str.includes(substr, pos) `
+- `str.startsWith(searchString, pos)` 
+- `str.endsWith(searchString, length)`
+- `str.slice(start [, end])`
+- `str.substring(start [, end])`
+- `str.substr(start [, length])`
+
+**-indexOf**: It looks for the substr in str and returns the position where the match was found or -1 if nothing can be found.
+
+```js
+let str = 'Widget with id';
+
+str.indexOf('Widget'); // 0, 'Widget' is found at the beginning
+str.indexOf('widget'); // -1, the search is case-sensitive
+```
+
+The optional second parameter allows us to search starting from the given position.
+
+```js
+let str = 'Widget with id';
+
+str.indexOf('id', 2) // 12
+```
+
+We can run indexOf in a loop to find all the occurrences.
+
+Note: we can use bitwise NOT to avoid getting *falsy* value when sub-string found at position 0. Not recommended but good to know:
+
+```js
+if (~str.indexOf(...)) // reads as “if found”.
+```
+
+<br>
+
+**-lastIndexOf**: searches from the end of a string to its beginning.
+
+```js
+'canal'.lastIndexOf('a');     // returns 3
+'canal'.lastIndexOf('a', 2);  // returns 1
+'canal'.lastIndexOf('');      // returns 5
+```
+
+<br>
+
+**-includes**: This more modern method returns `true`/`false` depending on whether `str` contains `substr` within.
+
+```js
+"Widget with id".includes("Widget") // true
+"Hello".includes("Bye"); // false
+
+"Widget".includes("id", 3); // false
+```
+
+<br>
+
+**-startsWith**:
+
+```js
+"Widget".startsWith("Wid"); // true
+```
+
+<br>
+
+**-endsWith**:
+
+```js
+"Widget".endsWith("get"); // true
+```
+
+<br>
+
+**-slice**: Returns the part of the string from `start` to (but not including) `end`.
+
+```js
+let str = "stringify";
+str.slice(2); // 'ringify'
+str.slice(0, 5); // 'strin'
+str.slice(0, 1); // 's'
+str.slice(-4, -1); // 'gif'
+```
+
+<br>
+
+**-substring**: Returns the part of the string between `start` and `end` (same as slice, but it allows start to be greater than end).
+
+```js
+let str = "stringify";
+
+str.substring(6, 2); // "ring"
+str.slice(6, 2); // ""
+```
+
+Negative arguments are (unlike slice) not supported, they are treated as 0.
+
+<br>
+
+**-substr**: Returns the part of the string from `start`, with the given `length`.
+
+```js
+let str = "stringify";
+
+str.substr(2, 4); // 'ring'
+str.substr(-4, 2); // 'gi'
+```
+
+`slice` is the most common one to use.
+
+<br><br>
+
+#### Comparisons
+
+Strings are compared character-by-character in alphabetical order.
+
+A lowercase letter is always greater than the uppercase:
+
+```js
+'a' > 'Z'; // true
+```
+
+The call `str.localeCompare(str2)` returns an integer indicating whether str is less, equal or greater than `str2` according to the language rules:
+
+- Negative number if `str` is less than `str2`.
+- Positive number if `str` is greater than `str2`.
+- 0 if they are equivalent.
+
+```js
+'Österreich'.localeCompare('Zealand'); // -1
+```
+
+-**str.codePointAt(pos)**: code for the character at position.
+
+```js
+"z".codePointAt(0); // 122
+"Z".codePointAt(0); // 90
+```
+
+-**String.fromCodePoint(code)**: character by its numeric code.
+
+```js   
+String.fromCodePoint(90); // Z
+```
 
 <br><br>
 
